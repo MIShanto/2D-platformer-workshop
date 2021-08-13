@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
+    public Animator transitionAnimator;
+
     Rigidbody2D rb;
     public float leftRightspeed;
     public float jumpspeed;
@@ -140,14 +142,26 @@ public class PlayerController : MonoBehaviour
 
         if (collision.tag == "Level 1 End")
         {
-            SceneManager.LoadScene(2);
+            transitionAnimator.SetTrigger("Transition");
+
+            Invoke("LoadScene2", 0.7f);
 
         }
         if (collision.tag == "Level 2 End")
         {
-            SceneManager.LoadScene(0);
 
+            Invoke("LoadScene0", 0.7f);
         }
+    }
+
+    void LoadScene2()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    void LoadScene0()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void LeftButtonPressed()
